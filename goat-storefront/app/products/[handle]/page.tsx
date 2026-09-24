@@ -4,6 +4,8 @@ import { AddToCart } from "@/components/AddToCart";
 import { PaymentBadges } from "@/components/PaymentBadges";
 import { SpecTiles } from "@/components/SpecTiles";
 import { StickyBuy } from "@/components/StickyBuy";
+import { PwoFacts, PwoIntro } from "@/components/ProductDetails";
+import { isPwo } from "@/lib/productInfo";
 import { Gallery } from "@/components/Gallery";
 import { ProductCard } from "@/components/ProductCard";
 import { formatMoney, getProduct, getProducts } from "@/lib/commerce";
@@ -26,6 +28,10 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
   const [product, all] = await Promise.all([getProduct(handle), getProducts()]);
   if (!product) notFound();
   const others = all.filter((p) => p.id !== product.id);
+  const pwo = isPwo(product);
+  const sentences = product.description.split(/(?<=[.!?])\s+/);
+  const short = sentences.slice(0, 2).join(" ");
+  const rest = sentences.slice(2).join(" ");
   const low = product.variants.reduce((m, v) => (v.price.amount < m.price.amount ? v : m));
 
   const jsonLd = {
@@ -51,19 +57,32 @@ export default async function ProductPage({ params }: { params: Promise<{ handle
             <b className="font-display text-4xl">{product.variants.length > 1 ? `From ${formatMoney(low.price)}` : formatMoney(low.price)}</b>
             {low.compareAtPrice && <s className="text-mute">{formatMoney(low.compareAtPrice)}</s>}
           </p>
-          <p className="mt-6 max-w-lg leading-relaxed text-mute">{product.description}</p>
+          {pwo ? (
+            <PwoIntro full={product.description} />
+          ) : (
+            <div className="mt-6 max-w-lg">
+              <p className="leading-relaxed text-mute">{short}</p>
+              {rest && (
+                <details className="mt-4 text-sm">
+                  <summary className="cursor-pointer list-none text-xs font-bold uppercase tracking-[0.2em] text-mute [&::-webkit-details-marker]:hidden">Read more <span aria-hidden className="text-accent">+</span></summary>
+                  <p className="mt-3 leading-relaxed text-mute">{rest}</p>
+                </details>
+              )}
+            </div>
+          )}
           <div className="mt-8"><AddToCart product={product} /></div>
 
                     <PaymentBadges className="mt-4" />
 
-          <details className="group mt-8 border-t border-line py-5" open>
+          {!pwo && <details className="group mt-8 border-t border-line py-5" open>
             <summary className="flex cursor-pointer list-none items-center justify-between font-serif text-2xl italic [&::-webkit-details-marker]:hidden">Key ingredients<span aria-hidden className="text-accent transition group-open:rotate-45">+</span></summary>
             <ul className="mt-4 flex flex-wrap gap-2">{INGREDIENTS.map((i) => <li key={i} className="rounded-full border border-line px-3 py-1 text-sm text-mute">{i}</li>)}</ul>
             <p className="mt-3 text-xs text-mute">Always check the label on your tub for the full ingredient list and directions.</p>
-          </details>
+          </details>}
         </div>
       </div>
 
+      {pwo && <PwoFacts />}
       <div className="-mx-5 mt-16"><SpecTiles /></div>
       <StickyBuy product={product} />
 
