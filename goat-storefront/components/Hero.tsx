@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const VIDEO = process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "/video/hero.mp4";
 const POSTER = process.env.NEXT_PUBLIC_HERO_POSTER_URL || "/video/hero-poster.jpg";
@@ -11,6 +11,25 @@ const rise = { hidden: { y: "105%" }, show: (i: number) => ({ y: 0, transition: 
 export function Hero({ priceLabel }: { priceLabel: string }) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
+  const vid = useRef<HTMLVideoElement>(null);
+
+  // React does not always write the `muted` attribute to the DOM, and browsers only autoplay muted video.
+  // Set it by hand, start playback, and retry on the first touch/scroll if the browser (e.g. iOS Low Power Mode) blocked it.
+  useEffect(() => {
+    const v = vid.current;
+    if (!v || reduce) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.setAttribute("muted", "");
+    v.setAttribute("playsinline", "");
+    const play = () => v.play().catch(() => {});
+    play();
+    const events = ["touchstart", "pointerdown", "scroll", "keydown"] as const;
+    const retry = () => { play(); events.forEach((e) => window.removeEventListener(e, retry)); };
+    events.forEach((e) => window.addEventListener(e, retry, { passive: true }));
+    v.addEventListener("loadeddata", play);
+    return () => { events.forEach((e) => window.removeEventListener(e, retry)); v.removeEventListener("loadeddata", play); };
+  }, [reduce]);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "14%"]);
 
@@ -21,7 +40,7 @@ export function Hero({ priceLabel }: { priceLabel: string }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={POSTER} alt="" className="size-full object-cover object-center" />
         ) : (
-          <video className="size-full object-cover object-center" src={VIDEO} poster={POSTER} autoPlay muted loop playsInline preload="auto" aria-hidden />
+          <video ref={vid} className="hero-video size-full object-cover object-center" src={VIDEO} poster={POSTER} autoPlay muted loop playsInline preload="auto" controls={false} disablePictureInPicture disableRemotePlayback tabIndex={-1} aria-hidden />
         )}
         <div className="absolute inset-0 bg-black/25" />
       </motion.div>
