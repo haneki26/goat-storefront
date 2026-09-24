@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { IMAGES } from "@/lib/commerce";
 
-const VIDEO = process.env.NEXT_PUBLIC_HERO_VIDEO_URL;
-const POSTER = process.env.NEXT_PUBLIC_HERO_POSTER_URL;
+const VIDEO = process.env.NEXT_PUBLIC_HERO_VIDEO_URL || "/video/hero.mp4";
+const POSTER = process.env.NEXT_PUBLIC_HERO_POSTER_URL || "/video/hero-poster.jpg";
 const rise = { hidden: { y: "105%" }, show: (i: number) => ({ y: 0, transition: { duration: 1.1, delay: 0.25 + i * 0.14, ease: [0.16, 1, 0.3, 1] as const } }) };
 
 export function Hero({ priceLabel }: { priceLabel: string }) {
@@ -18,14 +17,13 @@ export function Hero({ priceLabel }: { priceLabel: string }) {
   return (
     <section ref={ref} data-theme="dark" className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-black pb-20 pt-40 text-[#f7f3ec] md:pt-48">
       <motion.div style={{ y }} className="absolute inset-0 -z-10">
-        {VIDEO ? (
-          <video className="size-full object-cover" src={VIDEO} poster={POSTER} autoPlay muted loop playsInline preload="metadata" aria-hidden />
-        ) : reduce ? null : (
-          // Live bottle animation from the current GOAT site (GIF on Shopify CDN). Set NEXT_PUBLIC_HERO_VIDEO_URL to an MP4 for a much lighter load.
+        {reduce ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={IMAGES.heroGif} alt="" fetchPriority="high" className="size-full object-cover object-center" />
+          <img src={POSTER} alt="" className="size-full object-cover object-center" />
+        ) : (
+          <video className="size-full object-cover object-center" src={VIDEO} poster={POSTER} autoPlay muted loop playsInline preload="auto" aria-hidden />
         )}
-        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-black/25" />
       </motion.div>
 
       <div className="mx-auto w-full max-w-7xl px-5">

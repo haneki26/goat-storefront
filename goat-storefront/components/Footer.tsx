@@ -15,7 +15,7 @@ export function Footer() {
     <footer className="border-t border-line bg-coal">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-[1.4fr_repeat(3,1fr)]">
         <div>
-          <Image src={LOGOS.wordmark} alt="GOAT" width={200} height={70} className="h-16 w-auto" />
+          <Image src={LOGOS.wordmark} alt="GOAT" width={337} height={169} className="h-16 w-auto" />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-mute">Premium performance supplements from Norway. Become the best version of yourself.</p>
           <SocialLinks className="mt-6" />
         </div>

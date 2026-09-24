@@ -18,10 +18,10 @@ export const PAYMENTS = [
   { name: "American Express", file: "amex" },
 ] as const;
 
-/** Real logo assets used on the current site. Re-upload to Shopify Files and swap these URLs when convenient. */
+/** Official GOAT logo files (supplied by the brand), served from /public/brand. */
 export const LOGOS = {
-  emblem: "https://cdn.shopify.com/s/files/1/0640/3781/4469/files/ChatGPT_Image_12._feb._2026_15_00_21_ee6db158-ae84-4a8a-a154-0fb7adc4e651.png?v=1770905070",
-  wordmark: "https://files.ecomsend.com/prod/87050c3fc2326f1360153f8b0be586d4/202509/a4f0974a29e139638c31802352a6a0c9.png",
+  emblem: "/brand/emblem.png",
+  wordmark: "/brand/wordmark.png",
 };
 
 export const ANNOUNCEMENTS: [string, string][] = [

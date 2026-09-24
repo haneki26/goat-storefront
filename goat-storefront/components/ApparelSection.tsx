@@ -16,8 +16,8 @@ export function ApparelSection({ id = "apparel" }: { id?: string }) {
             <Waitlist />
           </div>
           <div data-theme="dark" className="relative grid min-h-[16rem] place-items-center bg-[#0b0b0c] p-10">
-            <Image src={LOGOS.emblem} alt="GOAT" width={260} height={180} className="w-1/2 max-w-[15rem]" />
-            <Image src={LOGOS.wordmark} alt="" width={160} height={56} className="absolute bottom-6 h-11 w-auto" />
+            <Image src={LOGOS.emblem} alt="GOAT" width={640} height={628} className="w-1/2 max-w-[15rem]" />
+            <Image src={LOGOS.wordmark} alt="" width={337} height={169} className="absolute bottom-6 h-11 w-auto" />
           </div>
         </div>
       </Reveal>

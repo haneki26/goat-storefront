@@ -71,7 +71,7 @@ export function EmailPopup() {
             <motion.div role="dialog" aria-modal="true" aria-labelledby="popup-title" className="relative w-full max-w-md rounded-3xl border border-line bg-void p-8 text-center"
               initial={{ y: 40, scale: 0.96 }} animate={{ y: 0, scale: 1 }} exit={{ y: 20, opacity: 0 }} transition={{ type: "spring", damping: 26, stiffness: 260 }}>
               <button aria-label="Close" onClick={close} className="absolute right-4 top-4 grid size-9 place-items-center rounded-full border border-line hover:bg-coal">✕</button>
-              <Image src={LOGOS.wordmark} alt="GOAT" width={220} height={80} className="mx-auto h-20 w-auto" />
+              <Image src={LOGOS.wordmark} alt="GOAT" width={337} height={169} className="mx-auto h-20 w-auto" />
               {state === "done" ? (
                 <div className="py-6" role="status">
                   <h2 id="popup-title" className="font-display text-5xl">You&apos;re in</h2>

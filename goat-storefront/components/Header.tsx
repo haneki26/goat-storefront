@@ -51,7 +51,7 @@ export function Header() {
             </nav>
 
             <Link href="/" aria-label="GOAT Supplements home" className="absolute left-1/2 -translate-x-1/2">
-              <Image src={LOGOS.emblem} alt="GOAT" width={140} height={96} priority className="h-[3.4rem] w-auto object-contain md:h-[5.6rem]" />
+              <Image src={LOGOS.emblem} alt="GOAT" width={640} height={628} priority className="h-[3.4rem] w-auto object-contain md:h-[5.6rem]" />
             </Link>
 
             <div className="flex items-center gap-2 md:w-[24rem] md:justify-end md:gap-6">
