@@ -9,7 +9,9 @@ import { ProductCard } from "@/components/ProductCard";
 import { Reveal } from "@/components/Reveal";
 import { SocialFeed } from "@/components/SocialFeed";
 import { SpecTiles } from "@/components/SpecTiles";
+import { StackTeaser } from "@/components/StackTeaser";
 import { TrustStrip } from "@/components/TrustStrip";
+import { WhyGoat } from "@/components/WhyGoat";
 import { formatMoney, getProducts, IMAGES } from "@/lib/commerce";
 
 export const revalidate = 300;
@@ -37,6 +39,7 @@ export default async function Home() {
       </section>
 
       <Formula />
+      <WhyGoat />
 
       {bundle && (
         <section aria-labelledby="bundle-title" className="mx-auto max-w-7xl px-5 py-24">
@@ -57,6 +60,7 @@ export default async function Home() {
 
       <ApparelSection />
       <SocialFeed />
+      <StackTeaser />
       <Faq />
     </>
   );

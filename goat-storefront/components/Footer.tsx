@@ -7,7 +7,7 @@ import { LOGOS } from "@/lib/brand";
 const cols = [
   { title: "Shop", links: [["GOAT PWO", "/products/g-o-a-t-pwo-mango"], ["Bundles", "/products/goat-holiday-bundle-2x-goat-pwo"], ["All products", "/shop"], ["Apparel (soon)", "/apparel"]] },
   { title: "GOAT", links: [["The Formula", "/#formula"], ["GOAT Stack", "/stack"], ["FAQ", "/#faq"]] },
-  { title: "Support", links: [["Contact", "https://goatpeakperformance.com/pages/contact"], ["Refund policy", "https://goatpeakperformance.com/policies/refund-policy"], ["Privacy policy", "https://goatpeakperformance.com/policies/privacy-policy"], ["Terms of service", "https://goatpeakperformance.com/policies/terms-of-service"]] },
+  { title: "Support", links: [["Contact", "/contact"], ["Shipping", "/shipping"], ["Returns & refunds", "/returns"], ["Privacy policy", "/privacy"], ["Terms of service", "/terms"]] },
 ];
 
 export function Footer() {

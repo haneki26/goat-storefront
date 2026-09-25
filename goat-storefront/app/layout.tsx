@@ -9,6 +9,7 @@ import "@fontsource/bodoni-moda/700-italic.css";
 import "./globals.css";
 import { CartProvider } from "@/components/CartProvider";
 import { CartDrawer } from "@/components/CartDrawer";
+import { CookieBanner } from "@/components/CookieBanner";
 import { EmailPopup } from "@/components/EmailPopup";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <CartDrawer />
           <EmailPopup />
+          <CookieBanner />
         </CartProvider>
       </body>
     </html>
